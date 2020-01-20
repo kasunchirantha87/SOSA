@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="text-center">
+        <form method="post">
+            <div class="form-group">
+                <textarea placeholder="Describe yourself here..." name="Description" id="Description"
+                          rows="10" cols="40">
+        </textarea>
+                @*@Html.TextArea("txtComments", htmlAttributes: new
+                { @style = "width: 450px;", @placeholder = "Enter Comments here", @row = 100 })*@
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" asp-page-handler="SentiAnalays" value="Post" />
+                <input type="reset" class="btn btn-warning" value="Reset" />
+                <input type="submit" class="btn btn-danger" asp-page-handler="CreateModel" value="Create Model" />
+                <input type="submit" class="btn btn-info" asp-page-handler="GetLog" value="Log" />
+
+                @*@if (sentimentResult != "")
+                {
+                    <div class="alert alert-success" role="alert">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        @sentimentResult
+                    </div>
+                }*@
+
+            </div>
+        </form>
+    </div>
+
