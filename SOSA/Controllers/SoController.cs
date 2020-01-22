@@ -93,24 +93,29 @@ namespace SOSA.Controllers
             }
         }
 
-        public async Task<ActionResult> OnPostSentiAnalays()
+        public async Task<ActionResult> SentiAnalays()
         {
             string phraseToCheck = HttpContext.Request.Form["Description"];
-            InvokeRequestResponseService("createtable", "");
-            //var sentimentResult = await InvokeRequestResponseService("is_training##false", phraseToCheck);//=>Get the sentiment 
+            var sentimentResult = await InvokeRequestResponseService("createtable", "");
+            //var sentimentResult = await InvokeRequestResponseService("is_training##false", phraseToCheck.Trim());//=>Get the sentiment 
             //HttpContext.Session.SetString("SentimentResult", sentimentResult);
+            ViewBag.SentimentResult = sentimentResult;
             return View("Index");
         }
 
-        public void OnPostCreateModel()
+        public async Task<ActionResult> CreateModel()
         {
             string phraseToCheck = "";
-            InvokeRequestResponseService("is_training##true", phraseToCheck).Wait();//=>Train the Model
+            var sentimentResult = await InvokeRequestResponseService("is_training##true", phraseToCheck);//=>Train the Model
+            ViewBag.SentimentResult = sentimentResult;
+            return View("Index");
         }
-        public void OnPostGetLog()
+        public async Task<ActionResult> GetLog()
         {
             string phraseToCheck = "";
-            InvokeRequestResponseService("getsentimentlog", phraseToCheck).Wait();//=>Train the Model
+            var sentimentResult = await InvokeRequestResponseService("getsentimentlog", phraseToCheck);//=>Train the Model
+            ViewBag.SentimentResult = sentimentResult;
+            return View("Index");
         }
         static async Task<string> InvokeRequestResponseService(string isTraining, string phraseToCheck)
         {
